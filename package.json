@@ -1,0 +1,27 @@
+{
+  "name": "TesselRover",
+  "version": "0.1.0",
+  "description": "Tessel module to control an Elenco rover",
+  "main": "server.js",
+  "dependencies": {
+    "tiny-router": "^0.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chadwallacehart/TesselRover.git"
+  },
+  "keywords": [
+    "Tessel"
+  ],
+  "author": "Chad Wallace Hart",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chadwallacehart/TesselRover/issues"
+  },
+  "homepage": "https://github.com/chadwallacehart/TesselRover"
+}
