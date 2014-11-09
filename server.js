@@ -15,7 +15,7 @@ var lights = {
 //setup the gpio pins
 var gpo = {
     rf:  gpio.digital[0],   //RF : G1 pin 15, green wire
-    rb:  gpio.digital[1],   //RB : G2 pin 17, black
+    rb:  gpio.digital[1],   //RB : G2 pin 17, red wire
     lf:  gpio.digital[2],   //LF : G3 pin 19, white wire
     lb:  gpio.digital[3]    //LB : G4 pin 20, yellow wire
 };
@@ -40,7 +40,7 @@ router
     .get('/forward/{t}', function(req, res){
         var t = parseInt(req.body.t);
         if (isNaN(t)) t = 1;
-        res.send("<h1>Moving forward</h1>");
+        res.send("Moving forward");
         console.log("Toggling rf & lf for " + t + " seconds");
         gpo.rf.output(1);
         gpo.lf.output(1);
@@ -56,7 +56,7 @@ router
     .get('/backward/{t}', function(req, res){
         var t = parseInt(req.body.t);
         if (isNaN(t)) t = 1;
-        res.send("<h1>Moving backward</h1>");
+        res.send("Moving backward");
         console.log("Toggling rb & lb for " + t + " seconds");
         gpo.rb.output(1);
         gpo.lb.output(1);
@@ -72,7 +72,7 @@ router
     .get('/spinright/{t}', function(req, res){
         var t = parseInt(req.body.t);
         if (isNaN(t)) t = 1;
-        res.send('<h1>Spinning right</h1>');
+        res.send("Spinning right");
         console.log("Toggling rf & lb for " + t + " seconds");
         gpo.lf.output(1);
         gpo.rb.output(1);
@@ -87,7 +87,7 @@ router
     .get('/spinleft/{t}', function(req, res){
         var t = parseInt(req.body.t);
         if (isNaN(t)) t = 1;
-        res.send('<h1>Spinning left</h1>');
+        res.send("Spinning left");
         console.log("Toggling rf & lb for " + t + " seconds");
         gpo.rf.output(1);
         gpo.lb.output(1);
@@ -99,7 +99,6 @@ router
             }
             , 1000);
     })
-
 
     .get('/rf/{t}', function(req, res){
         var t = parseInt(req.body.t);
@@ -170,10 +169,7 @@ router
             }
             , t * 1000);
     })
-
 ;
-
-
 
 function start(){
 
