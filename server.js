@@ -2,8 +2,16 @@
  * Created by chad on 8/30/2014.
  */
 var router = require('tiny-router'),
+    fs = require('fs'),
     tessel = require('tessel'),
     gpio = tessel.port['GPIO'];
+
+router
+    .use('static', {path: './static'})
+    // Use the onboard file system (as opposed to microsd)
+    .use('fs', fs);
+
+
 
 var lights = {
     green: tessel.led[0],
@@ -21,13 +29,23 @@ var gpo = {
 };
 
 router
-    .get('/', function(req, res) {
+    .get('/', function(req, res){
+        res.send('./static/index.html');
+        console.log('home page');
+    })
+
+    .get('/ping', function(req, res){
+        res.end('OK');
+        console.log('ping');
+    }
+
+    .get('/rest', function(req, res) {
         res.send(   '<h1>Simple tessel REST API for Elenco Rover</h1>' +
                     '<p><h3>Commands</h3></p>' +
                     '<ul>' +
                     '<li><a href="/forward">/forward</a> - move forward for 1 second</li>' +
                     '<li><a href="/backward">/backward</a> - move backward for 1 second</li>' +
-                    '<li><a href="spinright">/spinright</a> - spin to the right for 1 second</li>' +
+                    '<li><a href="/spinright">/spinright</a> - spin to the right for 1 second</li>' +
                     '<li><a href="/spinleft">/spinleft</a> - spin to the left for 1 second</li>' +
                     '<li>/rf/t - right forward for t seconds</li>' +
                     '<li>/rb/t - right backward for t seconds</li>' +
@@ -179,13 +197,13 @@ function start(){
     gpo.lf.output(0);
     gpo.lb.output(0);
 
-//Delay 10 seconds to give WiFi to start
+//Delay 8 seconds to give WiFi to start
 //To do: Look for wifi acquired event
     setTimeout(function(){
         router.listen(8080);
         console.log("listening on port 8080");
         lights.green.write(1);
-    },10000);
+    },8000);
 }
 
 start();
