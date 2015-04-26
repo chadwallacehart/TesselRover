@@ -11,12 +11,13 @@ var commands = ['forward', 'backward', 'spinright', 'spinleft', 'f', 'b', 'r','l
 
 $(document).ready(function(){
 
-
     var response = $('#response')[0],
-        inputs =  $('#inputs')[0];
+        inputs =  $('#inputs')[0],
+        checkBtn = $('#check'),
+        runBtn = $('#run');
 
     //Button to check for syntax errors
-    $('#check').click(function(){
+    checkBtn.click(function(){
         response.value = syntaxCheck(inputs).output;
     });
 
@@ -83,7 +84,10 @@ $(document).ready(function(){
         }
     }
 
-    $('#start').click(function(){
+    runBtn.click(function(){
+
+        //ToDo: doesn't appear to be working;
+        runBtn.addClass("btn-disabled");
 
         //convert the input to lowercase and split on returns
         var lines = inputs.value.toLowerCase().split('\n');
@@ -123,11 +127,13 @@ $(document).ready(function(){
         function restCall() {
             //stop if we ran all the commands
             if (count >= urls.length) {
+                runBtn.removeClass("btn-disabled");
                 console.log('done');
             }
             else {
                 //use the timer so we don't send commands to quickly
                 setTimeout(function () {
+                    //ToDo: change this to $.ajax and set the timeout short
                     $.get(urls[count], function (data, status) {
                         response.value += data + '\n';
                         console.log(count + ": " + urls[count]);
@@ -139,6 +145,46 @@ $(document).ready(function(){
 
         //start sending ajax GETs to the tessel
         restCall(count);
-
     });
+
+    function ping(healthCheck) {
+        setTimeout(function () {
+            $.ajax({
+                url: tesselUrl + 'ping',
+                timeout: 3000 //3 second timeout
+            })
+                .done(function (data, status) {
+                    if (data == "alive" && status == "OK") {
+                        console.log(data + " " + status);
+                        runBtn.disabled = false;
+                        //ToDo: Not sure why these are giving me errors when I use runBtn
+                        $('#runBtn').removeClass("btn-disabled btn-warning").addClass("btn-success");
+                        console.log("ping OK");
+                        ping(60);
+
+                    }
+                    else {
+                        healthCheck = 10;
+                        runBtn.disabled = true;
+                        $('#runBtn').addClass("btn-disabled btn-warning").removeClass("btn-success");
+                        console.log("Ping error");
+                        ping(10);
+                    }
+                })
+                .fail(function (jqXHR, textStatus) {
+                    if (textStatus == 'timeout') {
+                        runBtn.disabled = true;
+                        $('#runBtn').removeClass("btn-success").addClass("btn-disabled btn-warning");
+                        //do something. Try again perhaps?
+                        console.log("Ping failed " + textStatus);
+
+                        ping(10);
+                    }
+                });
+        }, healthCheck * 1000)
+    }
+
+    //ToDo: check for connectivity
+    //ping(5);
+
 });

@@ -16,35 +16,40 @@
         <p>Use the command line interface below to program the rover</p>
     </div>
     <div class="row">
-        <div class ="accordion-heading col-sm-12">
-            <a class="accordion-toggle"
-                data-toggle="collapse"
-                data-parent="#instructions"
-                href="#instructions">Commands</a>
-        </div>
-        <div id="instructions" class="accordion-body collapse">
-            <div class="col-sm-4 small">
-                <ul>
-                    <li>f [#] | forward [#]     -- move forward for # sec</li>
-                    <li>b [#] | backward [#]    -- move backward for # sec</li>
-                    <li>r [#] | spinright [#]   -- spin right for # sec</li>
-                    <li>l [#] | or spinleft [#] -- spin left for # sec</li>
-                </ul>
-            </div>
-            <div class="col-sm-4 small">
-                <ul>
-                    <li>rf [#] -- move right & forward for # sec</li>
-                    <li>rb [#] -- move right & backward for # sec</li>
-                    <li>lf [#] -- move left & forward for  # sec </li>
-                    <li>lb [#] -- move left & back for # sec</li>
-                </ul>
-            </div>
-            <div class="col-sm-4 small">
-                <ul>
-                <li>Time intervals in seconds</li>
-                <li>Omit the time will default to 1 second</li>
-                <li>Maximum of 5 seconds allowed</li>
-                </ul>
+        <div class="panel-group col-sm-12" id="accordion">
+            <div class="panel panel-default ">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Instructions</a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="col-sm-4 small">
+                            <ul>
+                                <li>f [#] | forward [#]     -- move forward for # sec</li>
+                                <li>b [#] | backward [#]    -- move backward for # sec</li>
+                                <li>r [#] | spinright [#]   -- spin right for # sec</li>
+                                <li>l [#] | or spinleft [#] -- spin left for # sec</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 small">
+                            <ul>
+                                <li>rf [#] -- move right & forward for # sec</li>
+                                <li>rb [#] -- move right & backward for # sec</li>
+                                <li>lf [#] -- move left & forward for  # sec </li>
+                                <li>lb [#] -- move left & back for # sec</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 small">
+                            <ul>
+                            <li>Time intervals in seconds</li>
+                            <li>Omit the time will default to 1 second</li>
+                            <li>Maximum of 5 seconds allowed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -67,7 +72,7 @@
             <button type="button" class="btn btn-lg btn-block btn-info" id="check">Check</button>
         </div>
         <div class="col-sm-4">
-            <button type="button" class="btn btn-lg btn-block btn-success" id="start">Go</button>
+            <button type="button" class="btn btn-lg btn-block btn-success" id="run">Run</button>
         </div>
     </div>
 </div>

@@ -35,9 +35,9 @@ router
     })
 
     .get('/ping', function(req, res){
-        res.end('OK');
+        res.send('alive');
         console.log('ping');
-    }
+    })
 
     .get('/rest', function(req, res) {
         res.send(   '<h1>Simple tessel REST API for Elenco Rover</h1>' +
@@ -57,7 +57,7 @@ router
 
     .get('/forward/{t}', function(req, res){
         var t = parseInt(req.body.t);
-        if (isNaN(t)) t = 1;
+        if (isNaN(t)) t = 1;ts
         res.send("Moving forward");
         console.log("Toggling rf & lf for " + t + " seconds");
         gpo.rf.output(1);
